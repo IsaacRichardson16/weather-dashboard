@@ -8,3 +8,13 @@
 .btn {
     background-color: deepskyblue;
 }
+
+.current-weather{
+    background-color: deepskyblue;
+    color: white;
+}
+
+.five-day-card{
+    background-color: deepskyblue;
+    color: white;
+}
