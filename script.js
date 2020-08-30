@@ -12,12 +12,15 @@
                 var cityLat = response.coord.lat
                 var cityLon = response.coord.lon
 
-            
-                $("#temp-current").text("Temperature: " + (response.main.temp) + "°F")
-                $('#city-name-current').text("City Name: " + (response.name))
+                //current day 
+                $("#temp-current").text("Current Temperature: " + (response.main.temp) + "°F")
+                $('#city-name-current').text("City: " + (response.name))
                 $('#humidity-current').text("Humidity: " + (response.main.humidity) + "%")
                 $('#wind-current').text("Wind Speed: " + (response.wind.speed) + " mph")
+                $('#current-date').text(moment().format('dddd' + ', ' + 'MMMM Do YYYY'))
 
+                
+                
                 // latitiude and logitude, 5 day weather ajax request
                 $.ajax({
                     dataType: "JSON",
@@ -29,40 +32,94 @@
                         //current day UV index
                         $('#uv-current').text("UV Index: " + (response.current.uvi));
 
+                         //current-day icon
+                        icon = response.current.weather[0].icon;
+                        $('#icon-current').attr('src', '');
+                        var iconURL = 'https://openweathermap.org/img/wn/' + icon + '@2x.png';
+                        $('#icon-current').attr('src', iconURL);
+
                         //day-one info
+                        $('#date-one').text(moment().add(1, 'day').format('dddd'));
                         $("#temp-one").text("Temperature: " + (response.daily[0].temp.min) + "-" + (response.daily[0].temp.max) + "°F");
-                        // $('#city-name-one').text("City Name: " + (response.name))
                         $('#humidity-one').text("Humidity: " + (response.daily[0].humidity + "%"));
-                        $('#wind-one').text("Wind Speed: " + (response.daily[0].wind_speed) + " mph");
-                        $('#uv-one').text("UV Index: " + (response.daily[0].uvi));
+                       
+                        
+                        iconOne = response.daily[0].weather[0].icon;
+                        $('#icon-one').attr('src', '');
+                        var iconURLOne = 'https://openweathermap.org/img/wn/' + iconOne + '@2x.png';
+                        $('#icon-one').attr('src', iconURLOne);
 
+
+                        
+                        
                         //day 2 info
+                        $('#date-two').text(moment().add(2, 'day').format('dddd'));
                         $("#temp-two").text("Temperature: " + (response.daily[1].temp.min) + "-" + (response.daily[1].temp.max) + "°F");
-                        // $('#city-name-two').text("City Name: " + (response.name))
                         $('#humidity-two').text("Humidity: " + (response.daily[1].humidity + "%"));
-                        $('#wind-two').text("Wind Speed: " + (response.daily[1].wind_speed) + " mph");
-                        $('#uv-two').text("UV Index: " + (response.daily[1].uvi));
+                       
 
+                        iconTwo = response.daily[1].weather[0].icon;
+                        $('#icon-two').attr('src', '');
+                        var iconURLTwo = 'https://openweathermap.org/img/wn/' + iconTwo + '@2x.png';
+                        $('#icon-two').attr('src', iconURLTwo);
+
+
+                        
+                        
                         //day 3 info
+                        $('#date-three').text(moment().add(3, 'day').format('dddd'));
                         $("#temp-three").text("Temperature: " + (response.daily[2].temp.min) + "-" + (response.daily[2].temp.max) + "°F");
-                        // $('#city-name-three').text("City Name: " + (response.name))
                         $('#humidity-three').text("Humidity: " + (response.daily[2].humidity + "%"));
-                        $('#wind-three').text("Wind Speed: " + (response.daily[2].wind_speed) + " mph");
-                        $('#uv-three').text("UV Index: " + (response.daily[2].uvi));
+                       
 
+                        iconThree = response.daily[2].weather[0].icon;
+                        $('#icon-three').attr('src', '');
+                        var iconURLThree = 'https://openweathermap.org/img/wn/' + iconThree + '@2x.png';
+                        $('#icon-three').attr('src', iconURLThree);
+
+                        
+                        
                         //day 4 info
+                        $('#date-four').text(moment().add(4, 'day').format('dddd'));
                         $("#temp-four").text("Temperature: " + (response.daily[3].temp.min) + "-" + (response.daily[3].temp.max) + "°F");
-                        // $('#city-name-four').text("City Name: " + (response.name))
                         $('#humidity-four').text("Humidity: " + (response.daily[3].humidity + "%"));
-                        $('#wind-four').text("Wind Speed: " + (response.daily[3].wind_speed) + " mph");
-                        $('#uv-four').text("UV Index: " + (response.daily[3].uvi));
+                        
 
+                        iconFour = response.daily[3].weather[0].icon;
+                        $('#icon-four').attr('src', '');
+                        var iconURLFour = 'https://openweathermap.org/img/wn/' + iconFour + '@2x.png';
+                        $('#icon-four').attr('src', iconURLFour);
+
+                        
+                        
                         //day 5 info
+                        $('#date-five').text(moment().add(5, 'day').format('dddd'));
                         $("#temp-five").text("Temperature: " + (response.daily[4].temp.min) + "-" + (response.daily[4].temp.max) + "°F");
-                        // $('#city-name-five').text("City Name: " + (response.name))
                         $('#humidity-five').text("Humidity: " + (response.daily[4].humidity + "%"));
-                        $('#wind-five').text("Wind Speed: " + (response.daily[4].wind_speed) + " mph");
-                        $('#uv-five').text("UV Index: " + (response.daily[4].uvi));
+                        
+
+                        iconFive = response.daily[4].weather[0].icon;
+                        $('#icon-five').attr('src', '');
+                        var iconURLFive = 'https://openweathermap.org/img/wn/' + iconFive + '@2x.png';
+                        $('#icon-five').attr('src', iconURLFive);
+
+                       
+                       
+                       
+                        // changing the color of the uv index
+
+                        
+                       
+                        $('#uv-current').removeClass('uvIndexRed uvIndexYellow uvIndexGreen');
+                        if(response.current.uvi >= 8){
+                            $('#uv-current').addClass('uvIndexRed');
+                        } else if(response.current.uvi >= 4 && response.current.uvi<= 7.99){
+                            $('#uv-current').addClass('uvIndexYellow');
+                        }else{
+                            $('#uv-current').addClass('uvIndexGreen');
+                        }
+
+                       
 
                         
                     }

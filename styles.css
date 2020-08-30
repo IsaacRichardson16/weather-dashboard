@@ -18,3 +18,31 @@
     background-color: deepskyblue;
     color: white;
 }
+
+#forecast {
+    font-size: 10px;
+}
+
+.uvIndexGreen {
+    background-color: green;
+    width: 110px;
+    border-radius: 50px;
+}
+
+.uvIndexYellow {
+    background-color: yellow;
+    width: 110px;
+    border-radius: 50px;
+    color: black;
+}
+
+
+.uvIndexRed {
+    background-color: red;
+    width: 110px;
+    border-radius: 50px;
+}
+
+.date{
+    font-size: 20px;
+}

@@ -19,7 +19,7 @@
     <div class="container">
         <div class="row">
         <div class="jumbotron col-lg-12 mx-auto">
-            <h2 id="weatherDashboard">Weather Dashboard</h2>
+            <h1 id="weatherDashboard">Weather Dashboard</h1>
         </div>
     </div>
         <div class="row">
@@ -37,53 +37,61 @@
                 </div>
               </div>
               <div class="current-weather card col-lg-4 mx-auto">
-                <p id="city-name-current">City Name: </p>
+                <h2 id="city-name-current">City: </h2>
+                <h3 id="current-date">Date: </h3>
+                <img  id="icon-current">
                 <p id="temp-current">Temperature: </p>
                 <p id="humidity-current">Humidity: </p>
                 <p id="wind-current">Wind Speed: </p>
-                <p id="uv-current">UV index: </p>
+                <p class="uvIndex" id="uv-current">UV index: </p>
             </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12 text-center" id="forecast">
+            <h1>5 day forecast</h1>
+          </div>
         </div>
            
         <div class="row">
             <div class="five-day-card card col-lg-2 mx-auto" id="day-one">
-                <p id="city-name-one">City Name: </p>
+              <p class="date text-center" id="date-one"></p>
+              <img id="icon-one">
                 <p id="temp-one">Temperature: </p>
                 <p id="humidity-one">Humidity: </p>
-                <p id="wind-one">Wind Speed: </p>
-                <p id="uv-one">UV index: </p>
+               
             
             </div>
             <div class="five-day-card card col-lg-2 mx-auto" id="day-two">
-                <p id="city-name-two">City Name: </p>
+              <h2 class="date text-center" id="date-two"></h2>
+              <img id="icon-two">
                 <p id="temp-two">Temperature: </p>
                 <p id="humidity-two">Humidity: </p>
-                <p id="wind-two">Wind Speed: </p>
-                <p id="uv-two">UV index: </p>
+                
 
             </div>
             <div class="five-day-card card col-lg-2 mx-auto" id="day-three">
-                <p id="city-name-three">City Name: </p>
+              <h2 class="date text-center" id="date-three"></h2>
+              <img id="icon-three">
                 <p id="temp-three">Temperature: </p>
                 <p id="humidity-three">Humidity: </p>
-                <p id="wind-three">Wind Speed: </p>
-                <p id="uv-three">UV index: </p>
+               
 
             </div>
             <div class="five-day-card card col-lg-2 mx-auto" id="day-four">
-                <p id="city-name-four">City Name: </p>
+              <h2 class="date text-center" id="date-four"></h2>
+              <img id="icon-four">
                 <p id="temp-four">Temperature: </p>
                 <p id="humidity-four">Humidity: </p>
-                <p id="wind-four">Wind Speed: </p>
-                <p id="uv-four">UV index: </p>
+                
 
             </div>
             <div class="five-day-card card col-lg-2 mx-auto" id="day-five">
-                <p id="city-name-five">City Name: </p>
+              <h2 class="date text-center" id="date-five"></h2>
+              <img id="icon-five">
                 <p id="temp-five">Temperature: </p>
                 <p id="humidity-five">Humidity: </p>
-                <p id="wind-five">Wind Speed: </p>
-                <p id="uv-five">UV index: </p>
+                
 
             </div>
         </div>
@@ -110,8 +118,12 @@
     
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFcQz2GV0dJLG5OWZ3U2EWrZ7wJ4EW5Ac&libraries=places&callback=activatePlacesSearch"></script>
     
-    <!-- Local JS file-->
+    <!- Local JS file-->
     <script type="text/javascript" src="script.js"></script>
+    
+  
+    <!--moment.js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
     
   </body>
