@@ -1,33 +1,53 @@
-      $(document).ready(function () {
-    $('#searchBtn').click(function() {
-        var city = $("#city-search").val();
-
-        //current day ajax request
-        $.ajax({
+$(document).ready(function() {
+    // Check to see if a city has been saved in local storage
+    var lastCity = localStorage.getItem("lastCitySearched") || "";
+    // Initialize array of cities searched for search history updates
+    let citiesSearched = [lastCity];
+  
+    function updateCities(city) {
+      var cityDropdown = $("#city-history")[0];
+      var citySearched = document.createElement("option");
+      citySearched.value = city;
+      cityDropdown.appendChild(citySearched);
+      localStorage.setItem("lastCitySearched", city);
+    }
+    // Get the last city searched for and set initial dropdown
+    updateCities(lastCity);
+  
+    $("#searchBtn").click(function() {
+      var city = $("#city-search").val();
+      //current day ajax request
+      $.ajax({
+        dataType: "JSON",
+        type: "GET",
+        url:
+          "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" +
+          "&APPID=c7d2a279fe29531afb14530d758718b6",
+        success: function(response) {
+          var cityLat = response.coord.lat;
+          var cityLon = response.coord.lon;
+  
+          //current day
+          $("#temp-current").text("Current Temperature: " + response.main.temp + "°F");
+          $("#city-name-current").text("City: " + response.name);
+          $("#humidity-current").text("Humidity: " + response.main.humidity + "%");
+          $("#wind-current").text("Wind Speed: " + response.wind.speed + " mph");
+          $("#current-date").text(moment().format("dddd" + ", " + "MMMM Do YYYY"));
+  
+          // latitiude and logitude, 5 day weather ajax request
+          $.ajax({
             dataType: "JSON",
             type: "GET",
-            url: 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial' + '&APPID=c7d2a279fe29531afb14530d758718b6',
+            url: "https://api.openweathermap.org/data/2.5/onecall?lat=" +
+              cityLat + "&lon=" + cityLon + "&units=imperial&exclude=hourly,minutely&APPID=c7d2a279fe29531afb14530d758718b6",
             success: function(response) {
-              
-                var cityLat = response.coord.lat
-                var cityLon = response.coord.lon
-
-                //current day 
-                $("#temp-current").text("Current Temperature: " + (response.main.temp) + "°F")
-                $('#city-name-current').text("City: " + (response.name))
-                $('#humidity-current').text("Humidity: " + (response.main.humidity) + "%")
-                $('#wind-current').text("Wind Speed: " + (response.wind.speed) + " mph")
-                $('#current-date').text(moment().format('dddd' + ', ' + 'MMMM Do YYYY'))
-
-                
-                
-                // latitiude and logitude, 5 day weather ajax request
-                $.ajax({
-                    dataType: "JSON",
-                    type: "GET",
-                    url: 'https://api.openweathermap.org/data/2.5/onecall?lat=' + cityLat + '&lon=' + cityLon + '&units=imperial&exclude=hourly,minutely&APPID=c7d2a279fe29531afb14530d758718b6',
-                    success: function(response){
-                        console.log(response)
+              // Check that the city we search for is not already in the list
+              if (!citiesSearched.includes(city)) {
+                // this is mutative. if thats not ok you can uncomment the next line
+                citiesSearched.push(city);
+                //   citiesSearched = [...citiesSearched, city];
+                updateCities(city);
+              }
 
                         //current day UV index
                         $('#uv-current').text("UV Index: " + (response.current.uvi));
@@ -109,7 +129,6 @@
                         // changing the color of the uv index
 
                         
-                       
                         $('#uv-current').removeClass('uvIndexRed uvIndexYellow uvIndexGreen');
                         if(response.current.uvi >= 8){
                             $('#uv-current').addClass('uvIndexRed');
@@ -118,9 +137,6 @@
                         }else{
                             $('#uv-current').addClass('uvIndexGreen');
                         }
-
-                       
-
                         
                     }
 
