@@ -21,7 +21,7 @@ $(document).ready(function() {
         dataType: "JSON",
         type: "GET",
         url:
-          "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" +
+          "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" +
           "&APPID=c7d2a279fe29531afb14530d758718b6",
         success: function(response) {
           var cityLat = response.coord.lat;
